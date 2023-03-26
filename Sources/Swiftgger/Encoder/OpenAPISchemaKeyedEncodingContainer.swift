@@ -176,7 +176,7 @@ class OpenAPISchemaKeyedEncodingContainer<Key : CodingKey> : KeyedEncodingContai
             
             let typeName = String(describing: type(of: item))
             let openApiSchema = OpenAPISchema(ref: "#/components/schemas/\(typeName)")
-            let objectProperty = OpenAPISchema(type: APIDataType.array.type, required: getRequired(item) items: openApiSchema)
+            let objectProperty = OpenAPISchema(type: APIDataType.array.type, items: openApiSchema, required: getRequired(item))
             storage.push(property: self.converted(key).stringValue, withParameters: objectProperty)
         }
     }

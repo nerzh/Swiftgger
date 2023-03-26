@@ -50,18 +50,51 @@ extension APIDataType {
     
     init?(fromSwiftType type: Any.Type) {
         switch type {
+        case is Int8.Type:
+            self.type = "integer"
+            self.format = "int8"
+        case is Int16.Type:
+            self.type = "integer"
+            self.format = "int16"
         case is Int32.Type:
             self.type = "integer"
             self.format = "int32"
-        case is Int.Type:
+        case is Int64.Type:
             self.type = "integer"
             self.format = "int64"
+        case is Int.Type:
+            self.type = "integer"
+            self.format = "int"
+        case is UInt8.Type:
+            self.type = "integer"
+            self.format = "uint8"
+        case is UInt16.Type:
+            self.type = "integer"
+            self.format = "uint16"
+        case is UInt32.Type:
+            self.type = "integer"
+            self.format = "uint32"
+        case is UInt64.Type:
+            self.type = "integer"
+            self.format = "uint64"
+        case is UInt.Type:
+            self.type = "integer"
+            self.format = "uint"
+        case is Float32.Type:
+            self.type = "number"
+            self.format = "32float"
+        case is Float64.Type:
+            self.type = "number"
+            self.format = "64float"
         case is Float.Type:
             self.type = "number"
             self.format = "float"
         case is Double.Type:
             self.type = "number"
             self.format = "double"
+        case is Decimal.Type:
+            self.type = "number"
+            self.format = "decimal"
         case is Bool.Type:
             self.type = "boolean"
             self.format = nil

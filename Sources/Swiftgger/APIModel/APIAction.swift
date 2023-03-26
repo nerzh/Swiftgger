@@ -37,4 +37,39 @@ public class APIAction {
         self.responses = responses
         self.authorization = authorization
     }
+    
+    public init(
+        method: APIHttpMethod,
+        route: String,
+        summary: String,
+        description: String,
+        parametersObject: Any,
+        request: APIRequest? = nil,
+        responses: [APIResponse]? = nil,
+        authorization: Bool = false
+    ) {
+        self.method = method
+        self.route = route
+        self.summary = summary
+        self.description = description
+        self.request = request
+        self.responses = responses
+        self.authorization = authorization
+        self.parameters = []
+        getPropertiesInfo(parametersObject).forEach { property in
+            if property.isOptional, property.wrappedType != nil {
+                if let valueType = APIDataType(fromSwiftType: property.wrappedType!) {
+                    self.parameters!.append(
+                        APIParameter(name: property.name, parameterLocation: .query, required: !property.isOptional, dataType: valueType)
+                    )
+                }
+            } else {
+                if let valueType = APIDataType(fromSwiftType: property.type) {
+                    self.parameters!.append(
+                        APIParameter(name: property.name, parameterLocation: .query, required: !property.isOptional, dataType: valueType)
+                    )
+                }
+            }
+        }
+    }
 }

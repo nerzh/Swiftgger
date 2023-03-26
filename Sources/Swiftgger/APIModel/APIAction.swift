@@ -68,6 +68,8 @@ public class APIAction {
                     self.parameters!.append(
                         APIParameter(name: property.name, parameterLocation: .query, required: !property.isOptional, dataType: valueType)
                     )
+                } else {
+                    print("WARNING: unknown type", property.type)
                 }
             }
         }

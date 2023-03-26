@@ -44,6 +44,8 @@ extension OpenAPISchema {
             return "Bool"
         case "integer":
             return "Int"
+        case "array":
+            return "Array"
         case "number":
             if format == "float" {
                 return "Float"

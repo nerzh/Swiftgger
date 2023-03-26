@@ -107,6 +107,63 @@ extension APIDataType {
         case is UUID.Type:
             self.type = "string"
             self.format = "uuid"
+        case is Array<Int8>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Int16>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Int32>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Int64>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Int>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<UInt8>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<UInt16>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<UInt32>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<UInt64>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<UInt>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Float>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Float32>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Float64>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Double>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Decimal>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Bool>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<Date>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<String>.Type:
+            self.type = "array"
+            self.format = nil
+        case is Array<UUID>.Type:
+            self.type = "array"
+            self.format = nil
         default:
             return nil
         }

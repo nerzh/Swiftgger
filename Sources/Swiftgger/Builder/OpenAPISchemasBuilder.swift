@@ -49,12 +49,17 @@ class OpenAPISchemasBuilder {
 protocol OptionalProtocol {
     func wrappedType() -> Any.Type
 }
-
 extension Optional: OptionalProtocol {
-     func wrappedType() -> Any.Type {
-       return Wrapped.self
-     }
+     func wrappedType() -> Any.Type { return Wrapped.self }
 }
+
+protocol ArrayProtocol {
+    func wrappedType() -> Any.Type
+}
+extension Array: ArrayProtocol {
+     func wrappedType() -> Any.Type { return Element.self }
+}
+
 
 public func getRequired(_ n: Any) -> [String] {
     var result: [String] = .init()
@@ -79,11 +84,17 @@ public func getPropertiesInfo(_ instance: Any) -> [(name: String, value: Any, ty
     mirror.children.forEach { child in
         if let name = child.label {
             let isOptional: Bool = isOptional(child.value)
+            var wrappedType: Any.Type?
+            if child.value as? OptionalProtocol != nil {
+                wrappedType = (child.value as! OptionalProtocol).wrappedType()
+            } else if child.value as? ArrayProtocol != nil {
+                wrappedType = (child.value as! ArrayProtocol).wrappedType()
+            }
             result.append((name: name,
                            value: child.value,
                            type: type(of: child.value).self,
                            isOptional: isOptional,
-                           wrappedType: isOptional ? (child.value as! OptionalProtocol).wrappedType() : nil))
+                           wrappedType: wrappedType))
         }
     }
     return result

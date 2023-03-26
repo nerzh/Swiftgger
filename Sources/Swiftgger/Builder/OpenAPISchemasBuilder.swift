@@ -37,11 +37,29 @@ class OpenAPISchemasBuilder {
             let mirrorObjectType = object.customName ?? String(describing: requestMirror.subjectType)
 
             if schemas[mirrorObjectType] == nil {
-                let requestSchema = OpenAPISchema(type: "object", required: [], properties: objectSchema)
+                let requestSchema = OpenAPISchema(type: "object", required: getRequired(anyEncodable), properties: objectSchema)
                 schemas[mirrorObjectType] = requestSchema
             }
         }
 
         return schemas
     }
+}
+
+
+func getRequired(_ n: Any) -> [String] {
+    func isOptional(_ instance: Any) -> Bool {
+        let mirror = Mirror(reflecting: instance)
+        let style = mirror.displayStyle
+        return style == .optional
+    }
+    var result: [String] = .init()
+    let mi = Mirror.init(reflecting: n)
+    mi.children.forEach { child in
+        if !isOptional(child.value) && child.label != nil {
+            result.append(child.label!)
+        }
+    }
+    
+    return result
 }

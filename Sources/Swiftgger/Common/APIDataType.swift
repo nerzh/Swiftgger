@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import SwiftExtensionsPack
 
 /// OpenAPI Data Types as specified in https://swagger.io/specification/#dataTypes
 public struct APIDataType {
@@ -43,6 +44,9 @@ extension APIDataType {
         case is UUID:
             self.type = "string"
             self.format = "uuid"
+        case is AnyValue:
+            self.type = "string"
+            self.format = "anyValue"
         default:
             return nil
         }
@@ -164,6 +168,12 @@ extension APIDataType {
         case is Array<UUID>.Type:
             self.type = "array"
             self.format = nil
+        case is AnyValue.Type:
+            self.type = "string"
+            self.format = "anyValue"
+        case is Array<AnyValue>.Type:
+            self.type = "array"
+            self.format = nil
         default:
             return nil
         }
@@ -184,4 +194,5 @@ extension APIDataType {
     public static let dateTime = APIDataType(type: "string", format: "date-time")
     public static let password = APIDataType(type: "string", format: "password")
     public static let uuid = APIDataType(type: "string", format: "uuid")
+    public static let anyValue = APIDataType(type: "string", format: "anyValue")
 }
